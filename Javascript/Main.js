@@ -29,6 +29,8 @@ var Main = {
 	serieC : false,
 	serieE : false,
 	serieB : false,
+	serieText:"", // текстовая версия ТВ
+	version_vidget : "0.9.5.3",
 	mute : 0,
     NMUTE : 0,
     YMUTE : 1
@@ -45,15 +47,18 @@ Main.onLoad = function() {
 	this.TVPlugin = document.getElementById("pluginTV");
 	this.hardware_type = this.TVPlugin.GetProductType();
 	this.hardware = this.TVPlugin.GetProductCode(1);
+	this.hardware_char=this.hardware.substring(4,5);
+	alert (this.hardware );
+	
 	if(this.hardware.indexOf("C")>0){
-		Main.serieC = true;		
+		Main.serieC = true; Main.serieText ="C-series";		
 	} else {
 	if (this.hardware.indexOf("E") > 1 || (this.hardware.indexOf("C") < 0 && this.hardware.indexOf("D") < 0)) {
-		Main.serieE = true;
+		Main.serieE = true;Main.serieText ="E-series";
 		};
 	};	
 	if (this.hardware.indexOf("B") > 1) {
-		Main.serieB = true;
+		Main.serieB = true;Main.serieText ="B-series";
 		}			
 		
 	if (Player.init() && Audio.init() && Display.init()) {
@@ -64,7 +69,7 @@ Main.onLoad = function() {
 		document.getElementById("plain").style.display = "none";
 		document.getElementById("search").style.display = "none";
 		document.getElementById("black").style.display = "none";
-
+		widgetAPI.putInnerHTML(document.getElementById("vidget_ver_span"),"Model:"+this.hardware+"   Type:"+this.hardware_char+"   v."+Main.version_vidget);
 		// адрес запроса
 		this.sURL = this.janrURL + '?v=1,0&p=' + this.string + '&per=18';
 
@@ -99,6 +104,8 @@ Main.keyDown = function() {
 	var keyCode = event.keyCode;
 	switch (keyCode) {
 	case 75: // поиск
+		if (this.playlist == 0){
+			/// если мы 0-м уровне - поиск работает.
 		if (this.POISK == 0) {
 			document.getElementById("title").style.display = "none";
 			document.getElementById("janr").style.display = "none";
@@ -109,8 +116,8 @@ Main.keyDown = function() {
 			document.getElementById("black").style.display = "block";
 
 			Search.Input();
-		}
-
+			}
+		};
 		break;
 	case tvKey.KEY_1:
 	Player.PercentJump(1);
@@ -217,6 +224,7 @@ Main.keyDown = function() {
 
 	case tvKey.KEY_RETURN:
 	case tvKey.KEY_PANEL_RETURN:
+		widgetAPI.blockNavigation(event); // блокируем по умолчанию RETURN 
 		if ((Player.getState() == Player.PLAYING || Player.getState() == Player.PAUSED) && this.mode == this.FULLSCREEN)
 		//если смотрим фильм - в любом раскладе играет или пауза - выходим. экономим на нажатии кнопки СТОП
 		//зачем надо проверять режим проигрывания - на понял - по идее хватает проверки полноэкранности, но сделал  по аналогии 
@@ -224,7 +232,6 @@ Main.keyDown = function() {
 			Player.stopVideo();
 			break;
 		};////////
-		//widgetAPI.blockNavigation(event); // блокируем по умолчанию RETURN - убрал за ненадобностью....
 		this.playlist = 0;
 		document.getElementById("spisok").style.display = "block";
 		document.getElementById("playlist").style.display = "none";
