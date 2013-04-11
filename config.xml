@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget>
+    <widgetname>EX.ua</widgetname>
+	<ver>0.9.5.2</ver>
+	<category>Video</category>
+    <type>user</type>
+	<cpname></cpname>
+    <cplogo></cplogo>
+    <cpauthjs></cpauthjs>
+    <mgrver></mgrver>
+	<movie>y</movie>
+    <fullwidget>y</fullwidget>
+    <srcctl>y</srcctl>
+    <ticker>n</ticker>
+    <childlock>n</childlock>
+    <audiomute>n</audiomute>
+    <videomute>n</videomute>
+    <dcont>y</dcont>
+    
+	<ThumbIcon itemtype="string">Images/Icons/Ex_ua106x87.png</ThumbIcon>
+	<BigThumbIcon itemtype="string">Images/Icons/Ex_ua115x95.png</BigThumbIcon>
+	<ListIcon itemtype="string">Images/Icons/Ex_ua86x70.png</ListIcon>
+	<BigListIcon itemtype="string">Images/Icons/Ex_ua95x78.png</BigListIcon>
+	
+    <description></description>
+    <width>960</width>
+    <height>540</height>
+    <author>
+		<name>mirashic/torminen/JasonX/stiven76</name>
+		<email></email>
+		<link>www.ex.ua</link>
+		<organization>mirashic/torminen/JasonX</organization>
+    </author>
+</widget>
