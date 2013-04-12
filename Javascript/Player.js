@@ -158,8 +158,8 @@ Player.setScreenMode = function(modesize) {
 		break;
 	}
 
-	//this.plugin.SetDisplayArea(disp.x, disp.y, disp.w, disp.h);
-	//this.plugin.SetCropArea(crop.x, crop.y, crop.w, crop.h);
+	this.plugin.SetDisplayArea(disp.x, disp.y, disp.w, disp.h);
+	this.plugin.SetCropArea(crop.x, crop.y, crop.w, crop.h);
 	return result;
 };
 
