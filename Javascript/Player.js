@@ -72,7 +72,7 @@ Player.setScreenMode = function(modesize) {
 	if (w <= 0 || h <= 0)
 		return -1;
 
-	var wCorr = w < h * 4 / 3 ? h * 4 / 3 : w;
+	var wCorr = w < (h * 4 / 3) ? h * 4 / 3 : w;
 	var crop = {
 		x : 0,
 		y : 0,
@@ -158,8 +158,8 @@ Player.setScreenMode = function(modesize) {
 		break;
 	}
 
-	this.plugin.SetDisplayArea(disp.x, disp.y, disp.w, disp.h);
-	this.plugin.SetCropArea(crop.x, crop.y, crop.w, crop.h);
+	//this.plugin.SetDisplayArea(disp.x, disp.y, disp.w, disp.h);
+	//this.plugin.SetCropArea(crop.x, crop.y, crop.w, crop.h);
 	return result;
 };
 

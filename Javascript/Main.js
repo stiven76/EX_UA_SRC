@@ -30,7 +30,7 @@ var Main = {
 	serieE : false,
 	serieB : false,
 	serieText:"", // текстовая версия ТВ
-	version_vidget : "0.9.5.3",
+	version_vidget : "0.9.5.4",
 	mute : 0,
     NMUTE : 0,
     YMUTE : 1
@@ -103,6 +103,11 @@ Main.onUnload = function() {
 Main.keyDown = function() {
 	var keyCode = event.keyCode;
 	switch (keyCode) {
+	case tvKey.KEY_EXIT:
+		//alert("KEY_EXIT");
+		widgetAPI.blockNavigation(event); //отменяем заводскую реакцию на событие.
+		widgetAPI.sendReturnEvent();// <- выполняем выход из виджета ВОЗВРАТОМ в смартхаб - вместо закрытия смартхаба по widgetAPI.sendExitEvent();
+		break;
 	case 75: // поиск
 		if (this.playlist == 0){
 			/// если мы 0-м уровне - поиск работает.
@@ -183,7 +188,7 @@ Main.keyDown = function() {
 				: 1;
 
 		Player.setScreenMode(this.currentFSMode);
-		Display.statusPict (this.currentFSMode);
+		Display.statusLine ("Режим "+this.currentFSMode);
 		break;
 		
 	case tvKey.KEY_ASPECT: // переключение типа полноэкранного режима (циклично от
@@ -195,7 +200,7 @@ Main.keyDown = function() {
 				: 1;
 
 		Player.setScreenMode(this.currentFSMode);
-		Display.statusPict(this.currentFSMode);
+		Display.statusLine ("Режим "+this.currentFSMode);
 		break;
 
 	case tvKey.KEY_STOP:

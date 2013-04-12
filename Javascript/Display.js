@@ -1,9 +1,11 @@
 ﻿var Display =
 {
-            status_timer : null,
-            status_timer_pict : null,
-            statusDiv : null,
-            statusDivPict : null,
+            status_vol_timer : null,
+            status_line_timer : null,
+            
+            statusVolSpan : null,
+            statusLineSpan : null,
+            
             status1_timer : null,
             status1Div : null,
             index : 1, 
@@ -18,10 +20,10 @@ Display.init = function()
 {
     var success = true;
      this.status1Div = document.getElementById("status1");
-     this.statusDiv = document.getElementById("status");
-     this.statusDivPict = document.getElementById("status_pict");
+     this.statusVolSpan = document.getElementById("status_vol_span");
+     this.statusLineSpan = document.getElementById("status_line_span");
 
-    if (!this.statusDiv&&!this.status1Div&&!this.statusDivPict)
+    if (!this.statusVolSpan&&!this.status1Div&&!this.statusLineSpan)
     {
         success = false;
     }
@@ -29,37 +31,55 @@ Display.init = function()
     return success;
 };
   
+/////////////////////// STATUS LINE///////////////////////////////////
 
+Display.statusLine = function(param_string)
+{   
+	document.getElementById("statusline").style.display="block";
+    widgetAPI.putInnerHTML(this.statusLineSpan, param_string);
+	clearTimeout(this.status_line_timer);
+	Display.statusLineTimer();
+};
+Display.statusLineTimer = function()
+{
+	this.status_timer=setTimeout("Display.hideStatusLine()",2000);
+};
+
+Display.hideStatusLine = function()
+{
+	document.getElementById("statusline").style.display="none";
+};
+/////////////////////// STATUS LINE ///////////////////////////////////
+
+/////////////////////// STATUS VOLUME /////////////////////////////////
 Display.setVolume = function()
 {
 	var volume = Audio.getVolume();
 	Display.status("<span>ГРОМКОСТЬ " + volume + "</span>");
 };
-Display.statusPict = function(mode)
-{   
-	document.getElementById("statusbar_pict").style.display="block";
-    widgetAPI.putInnerHTML(this.statusDivPict, "Режим " + mode);
-	clearTimeout(this.status_timer_pict);
-	Display.statusTimerPict();
-};
-Display.statusTimerPict = function()
-{
-	this.status_timer=setTimeout("Display.hideStatusPict()",2000);
-};
-
-Display.hideStatusPict = function()
-{
-	document.getElementById("statusbar_pict").style.display="none";
-};
-
 
 Display.statusMute = function()
 {   
-	document.getElementById("statusbar").style.display="block";
-    widgetAPI.putInnerHTML(this.statusDiv, "<span>ГРОМКОСТЬ ВЫКЛ</span>");
-	clearTimeout(this.status_timer);
+	document.getElementById("statusvol").style.display="block";
+    widgetAPI.putInnerHTML(this.statusVolSpan, "<span>ГРОМКОСТЬ ВЫКЛ</span>");
+	clearTimeout(this.status_vol_timer);
 };
-
+Display.status = function(status)
+{   
+	document.getElementById("statusvol").style.display="block";
+    widgetAPI.putInnerHTML(this.statusVolSpan, status);
+	clearTimeout(this.status_timer);
+	Display.statusVolTimer();
+};
+Display.hideStatusVol = function()
+{
+	document.getElementById("statusvol").style.display="none";
+};
+Display.statusVolTimer = function()
+{
+	this.status_vol_timer=setTimeout("Display.hideStatusVol()",2000);
+};
+/////////////////////// STATUS VOLUME /////////////////////////////////
 
 Display.hidemenu = function()
 {
@@ -122,13 +142,7 @@ Display.infobarTimer = function()
 	this.infobar_timer=setTimeout("Display.hideplayer()",5000);
 };
 
-Display.status = function(status)
-{   
-	document.getElementById("statusbar").style.display="block";
-    widgetAPI.putInnerHTML(this.statusDiv, status);
-	clearTimeout(this.status_timer);
-	Display.statusTimer();
-};
+
 
 
 Display.status1 = function(status1)
@@ -139,20 +153,13 @@ Display.status1 = function(status1)
 	Display.status1Timer();
 };
 
-Display.hidestatus = function()
-{
-	document.getElementById("statusbar").style.display="none";
-};
 
 Display.hidestatus1 = function()
 {
 	document.getElementById("statusbar1").style.display="none";
 };
 
-Display.statusTimer = function()
-{
-	this.status_timer=setTimeout("Display.hidestatus()",2000);
-};
+
 
 Display.status1Timer = function()
 {

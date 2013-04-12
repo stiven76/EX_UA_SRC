@@ -22,15 +22,17 @@
 	font-family: Century_Gothic;
 	z-index:100;
 }
-#statusbar
+#statusvol
 {
 	position: absolute;
 	top: 450px;
 	left: 0px;
-	//opacity:0.6;
 	font-size: 20px;
+	text-align:center;
 	color: white;
-	background-color: #1c1c1c;
+	width: 100%;
+	background-image: url("../images/helpbar.png");
+	z-index:100;
 }
 #vidget_ver {
 	position: absolute;
@@ -43,18 +45,19 @@
 	text-align:right;
 }
 
-#statusbar_pict
+
+#statusline
 {
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	//opacity:0.6;
 	font-size: 20px;
+	text-align:center;
 	color: white;
-	background-color: #1c1c1c;
+	width: 100%;
+	background-image: url("../images/helpbar.png");
 	z-index:100;
 }
-
 #top {
 	position: absolute;
 	top: 0px;
