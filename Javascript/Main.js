@@ -2,6 +2,16 @@ var widgetAPI = new Common.API.Widget();
 var tvKey = new Common.API.TVKeyValue();
 var pluginAPI = new Common.API.Plugin();
 
+showHandler = function() {
+	alert ("{APP} ****************************showHandler");
+	document.getElementById('pluginObjectNNavi').SetBannerState(1);
+
+	//pluginAPI.SetBannerState(2);
+	pluginAPI.unregistKey(tvKey.KEY_VOL_UP);
+	pluginAPI.unregistKey(tvKey.KEY_VOL_DOWN);
+	pluginAPI.unregistKey(tvKey.KEY_MUTE);
+	pluginAPI.setOffScreenSaver();
+};
 var Main = {
 	mode : 0, // состояние полноэкранного режима
 	WINDOW : 0,
@@ -30,7 +40,7 @@ var Main = {
 	serieE : false,
 	serieB : false,
 	serieText:"", // текстовая версия ТВ
-	version_vidget : "0.9.5.4",
+	version_vidget : "0.9.5.5",
 	mute : 0,
     NMUTE : 0,
     YMUTE : 1
@@ -41,30 +51,21 @@ var c = 1; // индекс прошлой активной строки
 var url = ""; // адрес стрима файла mp3
 
 Main.onLoad = function() {
-	
-	this.Audio = document.getElementById('pluginAudio');
+	window.onShow =  showHandler; // Стандартный индикатор Volume-OSD
+/*	this.Audio = document.getElementById('pluginAudio');
 	this.audio_output_device = this.Audio.GetOutputDevice();
-	this.TVPlugin = document.getElementById("pluginTV");
+*/	this.TVPlugin = document.getElementById("pluginTV");
 	this.hardware_type = this.TVPlugin.GetProductType();
 	this.hardware = this.TVPlugin.GetProductCode(1);
 	this.hardware_char=this.hardware.substring(4,5);
-	alert (this.hardware );
-	
-	if(this.hardware.indexOf("C")>0){
-		Main.serieC = true; Main.serieText ="C-series";		
-	} else {
-	if (this.hardware.indexOf("E") > 1 || (this.hardware.indexOf("C") < 0 && this.hardware.indexOf("D") < 0)) {
-		Main.serieE = true;Main.serieText ="E-series";
-		};
-	};	
-	if (this.hardware.indexOf("B") > 1) {
-		Main.serieB = true;Main.serieText ="B-series";
-		}			
-		
+
 	if (Player.init() && Audio.init() && Display.init()) {
-		window.onShow = Main.onShowEventTVKey; // Стандартный индикатор
-		widgetAPI.sendReadyEvent();// Сообщаем менеджеру приложений о готовности		
+		
+		document.getElementById("main").style.display = "block";
 		document.getElementById("anchor").focus(); // Помещение фокуса на элемент "anchor"
+		widgetAPI.sendReadyEvent();// Сообщаем менеджеру приложений о готовности
+		
+		
 		document.getElementById("playlist").style.display = "none";
 		document.getElementById("plain").style.display = "none";
 		document.getElementById("search").style.display = "none";
@@ -74,28 +75,15 @@ Main.onLoad = function() {
 		this.sURL = this.janrURL + '?v=1,0&p=' + this.string + '&per=18';
 
 		URLtoXML.Proceed(this.sURL);
-		Display.setTime(0); // выставляем 0:00:00/0:00:00
-		// громкости
-		$('#svecKeyHelp_IIZH').sfKeyHelp({
-			'TOOLS' : 'Поиск',
-			'NUMBER' : 'Категория',
-			'UPDOWN' : 'Позиция',
-			'leftright' : 'Позиция',
-			'Enter' : 'Выбор',
-			'Exit' : 'Выход',
-		});
-	};
+		//Display.setTime(0); // выставляем 0:00:00/0:00:00
+		//Display.setVolume( Audio.getVolume() ); // громкости
+		$('#svecKeyHelp_IIZH').sfKeyHelp({'TOOLS' : 'Поиск','NUMBER' : 'Категория',	'UPDOWN' : 'Позиция','leftright' : 'Позиция','Enter' : 'Выбор',	'Exit' : 'Выход',});
+//		widgetAPI.sendReadyEvent();// Сообщаем менеджеру приложений о готовности
+	}
 };
 
 // Стандартный индикатор громкости
-Main.onShowEventTVKey = function() {
- if(Main.serieC==false)
-	pluginAPI.SetBannerState(1);
-	pluginAPI.unregistKey(tvKey.KEY_VOL_UP);
-	pluginAPI.unregistKey(tvKey.KEY_VOL_DOWN);
-	pluginAPI.unregistKey(tvKey.KEY_MUTE);
-	pluginAPI.setOffScreenSaver();
-};
+
 Main.onUnload = function() {
 	Player.deinit();
 	URLtoXML.deinit();
@@ -114,8 +102,6 @@ Main.keyDown = function() {
 		if (this.POISK == 0) {
 			document.getElementById("title").style.display = "none";
 			document.getElementById("janr").style.display = "none";
-
-
 			document.getElementById("search").style.display = "block";
 			document.getElementById("plain").style.display = "block";
 			document.getElementById("black").style.display = "block";
@@ -184,8 +170,7 @@ Main.keyDown = function() {
 		if (this.mode == this.WINDOW) { // не переключаем в свернутом режиме
 			break;
 		}
-		this.currentFSMode = (this.currentFSMode < 5) ? this.currentFSMode + 1
-				: 1;
+		this.currentFSMode = (this.currentFSMode < 5) ? this.currentFSMode + 1 : 1;
 
 		Player.setScreenMode(this.currentFSMode);
 		Display.statusLine ("Режим "+this.currentFSMode);
@@ -196,8 +181,7 @@ Main.keyDown = function() {
 		if (this.mode == this.WINDOW) { // не переключаем в свернутом режиме
 			break;
 		}
-		this.currentFSMode = (this.currentFSMode < 5) ? this.currentFSMode + 1
-				: 1;
+		this.currentFSMode = (this.currentFSMode < 5) ? this.currentFSMode + 1 : 1;
 
 		Player.setScreenMode(this.currentFSMode);
 		Display.statusLine ("Режим "+this.currentFSMode);
@@ -357,23 +341,24 @@ Main.keyDown = function() {
 					+ "max-width: 200px; max-height: 200px; ' align='left'"
 					+ URLtoXML.pDes[this.index]);
 		}
-		$('#svecKeyHelp_IIZH').sfKeyHelp({
-			'BLUE' : 'Формат',
-			'UPDOWN' : 'Позиция',
-			'Enter' : 'Выбор',
-			'return' : 'Назад'
-		});
+		$('#svecKeyHelp_IIZH').sfKeyHelp({'BLUE' : 'Формат','UPDOWN' : 'Позиция','Enter' : 'Выбор','return' : 'Назад'});
 		break;
-
+/*
 	case tvKey.KEY_VOL_UP:
+		if (this.mute == this.YMUTE) {Main.noMuteMode();}
+		Audio.setRelativeVolume(0);
+		break;
 	case tvKey.KEY_PANEL_VOL_UP: // громкость +
-		if (this.mute == this.YMUTE) Main.noMuteMode();
+		if (this.mute == this.YMUTE) {Main.noMuteMode();}
 		Audio.setRelativeVolume(0);
 		break;
 
 	case tvKey.KEY_VOL_DOWN:
+		if (this.mute == this.YMUTE) {Main.noMuteMode();}
+		Audio.setRelativeVolume(1);
+		break;
 	case tvKey.KEY_PANEL_VOL_DOWN: // громкость -
-		if (this.mute == this.YMUTE) Main.noMuteMode();
+		if (this.mute == this.YMUTE) {Main.noMuteMode();}
 		Audio.setRelativeVolume(1);
 		break;
 	
@@ -381,6 +366,7 @@ Main.keyDown = function() {
         alert("MUTE");
         this.muteMode();
         break;
+  */      
 	
 	default:
 		alert("Unhandled key");
@@ -663,9 +649,9 @@ Main.muteMode = function(){
 			this.setMuteMode();
 	        break;
 	            
-	        case this.YMUTE:
-	            this.noMuteMode();
-	            break;
+	    case this.YMUTE:
+	        this.noMuteMode();
+	        break;
 	            
 	        default:
 	            alert("ERROR: unexpected mode in muteMode");

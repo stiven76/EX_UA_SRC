@@ -68,7 +68,7 @@ Display.status = function(status)
 {   
 	document.getElementById("statusvol").style.display="block";
     widgetAPI.putInnerHTML(this.statusVolSpan, status);
-	clearTimeout(this.status_timer);
+	clearTimeout(this.status_vol_timer);
 	Display.statusVolTimer();
 };
 Display.hideStatusVol = function()

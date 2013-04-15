@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget>
     <widgetname>EX.ua</widgetname>
-	<ver>0.9.5.4</ver>
+	<ver>0.9.5.5</ver>
 	<category>Video</category>
     <type>user</type>
 	<cpname></cpname>
@@ -29,6 +29,6 @@
 		<name>mirashic/torminen/JasonX/stiven76</name>
 		<email></email>
 		<link>www.ex.ua</link>
-		<organization>mirashic/torminen/JasonX</organization>
+		<organization>mirashic/torminen/JasonX/stiven76</organization>
     </author>
 </widget>

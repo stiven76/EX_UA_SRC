@@ -1,9 +1,9 @@
 var Favorites = {
 
 };
-
+/*
 Favorites.open = function {
-	document.getElementById("anchor").focus(); // перемещаем фокус на элемент
+	document.getElementById("anchor").focus(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 												// "anchor"
 	URLtoXML.xmlHTTP = null;
 	Main.sURL = "/mtd_rwcommon/common/ex_fav.data" ";
@@ -15,12 +15,12 @@ Favorites.open = function {
 	document.getElementById("search").style.display = "none";
 	document.getElementById("black").style.display = "none";
 	$('#svecKeyHelp_IIZH').sfKeyHelp({
-		'TOOLS' : 'Поиск',
-		'NUMBER' : 'Категория',
-		'UPDOWN' : 'Позиция',
-		'leftright' : 'Позиция',
-		'Enter' : 'Выбор',
-		'return' : 'Назад'
+		'TOOLS' : 'пїЅпїЅпїЅпїЅпїЅ',
+		'NUMBER' : 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ',
+		'UPDOWN' : 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ',
+		'leftright' : 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ',
+		'Enter' : 'пїЅпїЅпїЅпїЅпїЅ',
+		'return' : 'пїЅпїЅпїЅпїЅпїЅ'
 	});
 };
 
@@ -75,7 +75,8 @@ Favorites.save  = function()
                         tempArray.splice(1,0,url1);
                     }
                 Favorites.write(tempArray);
-                Display.status("Добавленно в избранное");
+                Display.status("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
                 setTimeout("Display.hidestatus();", 1000);
 }
 
+*/

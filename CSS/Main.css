@@ -2,11 +2,18 @@
 	padding: 0;
 	margin: 0;
 	border: 0;
+	background-color: transparent;
+    color:#FFFFFF;
+	
 }
 
 @font-face {
 	font-family: Century_Gothic;
 	src: url('../fonts/Century_Gothic.ttf');
+}
+body
+{
+    width: 960px; height: 540px;
 }
 
 #main {
@@ -18,9 +25,9 @@
 	color: #c0c0c0;
 	font-size: 22px;
 	background-image: url("../images/background.png");
-	background-color: #242424;
+/*	background-color: #242424;*/
 	font-family: Century_Gothic;
-	z-index:100;
+	/*z-index:100;*/
 }
 #statusvol
 {
@@ -32,7 +39,7 @@
 	color: white;
 	width: 100%;
 	background-image: url("../images/helpbar.png");
-	z-index:100;
+	/*z-index:100;*/
 }
 #vidget_ver {
 	position: absolute;
@@ -56,7 +63,7 @@
 	color: white;
 	width: 100%;
 	background-image: url("../images/helpbar.png");
-	z-index:100;
+	/*z-index:100;*/
 }
 #top {
 	position: absolute;
@@ -65,7 +72,7 @@
 	width: 960px;
 	height: 60px;
 	background-image: url("../images/top.png");
-	z-index:100;
+	/*z-index:100;*/
 }
 
 #svecKeyHelp_IIZH {
@@ -75,7 +82,7 @@
 	width: 960px;
 	height: 30px;
 	background-image: url("../images/helpbar.png");
-	z-index:100;
+	/*z-index:100;*/
 }
 
 #search {
@@ -85,7 +92,7 @@
 	width: 300px;
 	color: #c0c0c0;
 	font-size: 34px;
-	z-index:110;
+	/*z-index:110;*/
 }
 
 #plain {
@@ -95,7 +102,7 @@
 	width: 291px;
 	height: 29px;
 	background-image: url("../images/text_input.png");;
-	z-index:110;
+	/*z-index:110;*/
 }
 
 #plainText {
@@ -108,7 +115,7 @@
 	color: #BBBBBB;
 	font-size: 19px;
 	font-family: Century_Gothic;
-	z-index:110;
+	/*z-index:110;*/
 }
 
 #title {
@@ -120,7 +127,7 @@
 	color: #c0c0c0;
 	font-size: 18px;
 	font-family: Times New Roman, Times, serif;
-	z-index:110;
+	/*z-index:110;*/
 }
 
 #janr {
@@ -318,7 +325,7 @@
 	padding-left: 32%;
         width: 8%;font-size:18px;
 	color : #FFFFFF;
-	z-index:100;
+	/*z-index:100;*/
 }
 
 #help_navi_player

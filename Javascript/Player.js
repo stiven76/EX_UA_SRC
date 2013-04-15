@@ -20,13 +20,13 @@ Player.init = function() {
 
 	this.state = this.STOPPED;
 	this.plugin = document.getElementById("pluginPlayer");
-	this.mwPlugin = document.getElementById("pluginObjectTVMW");
+//	this.mwPlugin = document.getElementById("pluginObjectTVMW");
 
         if (!this.plugin )
         {
         success = false;
         }
-        if (!this.mwPlugin || !this.mwPlugin.GetSource) 
+/*        if (!this.mwPlugin || !this.mwPlugin.GetSource) 
         {
         success = false;
         } 
@@ -35,6 +35,7 @@ Player.init = function() {
         this.originalSource = this.mwPlugin.GetSource();
         this.mwPlugin.SetMediaSource();
         }
+        */
 	this.setWindow();
 
 	this.plugin.OnCurrentPlayTime = 'Player.setCurTime';
@@ -87,7 +88,7 @@ Player.setScreenMode = function(modesize) {
 	};
 
 	var result = ((!modesize) ? 1 : modesize) + "";
-
+alert ("{APP}setscreenmode "+result);
 	switch (result) {
 	case "1":
 		if (h / w > 9 / 16) {
