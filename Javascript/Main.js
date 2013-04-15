@@ -64,8 +64,7 @@ Main.onLoad = function() {
 		
 		document.getElementById("main").style.display = "block";
 		document.getElementById("anchor").focus(); // Помещение фокуса на элемент "anchor"
-	//	widgetAPI.sendReadyEvent();// Сообщаем менеджеру приложений о готовности
-		
+		widgetAPI.sendReadyEvent();// Сообщаем менеджеру приложений о готовности
 		
 		document.getElementById("playlist").style.display = "none";
 		document.getElementById("plain").style.display = "none";
@@ -79,7 +78,7 @@ Main.onLoad = function() {
 		//Display.setTime(0); // выставляем 0:00:00/0:00:00
 		//Display.setVolume( Audio.getVolume() ); // громкости
 		$('#svecKeyHelp_IIZH').sfKeyHelp({'TOOLS' : 'Поиск','NUMBER' : 'Категория',	'UPDOWN' : 'Позиция','leftright' : 'Позиция','Enter' : 'Выбор',	'Exit' : 'Выход'});
-	widgetAPI.sendReadyEvent();// Сообщаем менеджеру приложений о готовности
+	
 	}
 };
 
