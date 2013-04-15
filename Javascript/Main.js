@@ -41,9 +41,10 @@ var Main = {
 	serieB : false,
 	serieText:"", // текстовая версия ТВ
 	version_vidget : "0.9.5.5",
-	mute : 0,
+/*	mute : 0,
     NMUTE : 0,
     YMUTE : 1
+  */
 };
 
 var b = 1; // индекс активной строки
@@ -63,7 +64,7 @@ Main.onLoad = function() {
 		
 		document.getElementById("main").style.display = "block";
 		document.getElementById("anchor").focus(); // Помещение фокуса на элемент "anchor"
-		widgetAPI.sendReadyEvent();// Сообщаем менеджеру приложений о готовности
+	//	widgetAPI.sendReadyEvent();// Сообщаем менеджеру приложений о готовности
 		
 		
 		document.getElementById("playlist").style.display = "none";
@@ -77,8 +78,8 @@ Main.onLoad = function() {
 		URLtoXML.Proceed(this.sURL);
 		//Display.setTime(0); // выставляем 0:00:00/0:00:00
 		//Display.setVolume( Audio.getVolume() ); // громкости
-		$('#svecKeyHelp_IIZH').sfKeyHelp({'TOOLS' : 'Поиск','NUMBER' : 'Категория',	'UPDOWN' : 'Позиция','leftright' : 'Позиция','Enter' : 'Выбор',	'Exit' : 'Выход',});
-//		widgetAPI.sendReadyEvent();// Сообщаем менеджеру приложений о готовности
+		$('#svecKeyHelp_IIZH').sfKeyHelp({'TOOLS' : 'Поиск','NUMBER' : 'Категория',	'UPDOWN' : 'Позиция','leftright' : 'Позиция','Enter' : 'Выбор',	'Exit' : 'Выход'});
+	widgetAPI.sendReadyEvent();// Сообщаем менеджеру приложений о готовности
 	}
 };
 
@@ -224,13 +225,7 @@ Main.keyDown = function() {
 		this.playlist = 0;
 		document.getElementById("spisok").style.display = "block";
 		document.getElementById("playlist").style.display = "none";
-		$('#svecKeyHelp_IIZH').sfKeyHelp({
-			'TOOLS' : 'Поиск',
-			'NUMBER' : 'Категория',
-			'UPDOWN' : 'Позиция',
-			'leftright' : 'Позиция',
-			'Enter' : 'Выбор'
-		});
+		$('#svecKeyHelp_IIZH').sfKeyHelp({'TOOLS' : 'Поиск','NUMBER' : 'Категория','UPDOWN' : 'Позиция','leftright' : 'Позиция', 'Enter' : 'Выбор'});
 		break;
 
 	case tvKey.KEY_LEFT: // лево
@@ -340,33 +335,10 @@ Main.keyDown = function() {
 					+ URLtoXML.ImgDickr[this.index].replace("?100", "100")
 					+ "max-width: 200px; max-height: 200px; ' align='left'"
 					+ URLtoXML.pDes[this.index]);
-		}
+		};
 		$('#svecKeyHelp_IIZH').sfKeyHelp({'BLUE' : 'Формат','UPDOWN' : 'Позиция','Enter' : 'Выбор','return' : 'Назад'});
 		break;
-/*
-	case tvKey.KEY_VOL_UP:
-		if (this.mute == this.YMUTE) {Main.noMuteMode();}
-		Audio.setRelativeVolume(0);
-		break;
-	case tvKey.KEY_PANEL_VOL_UP: // громкость +
-		if (this.mute == this.YMUTE) {Main.noMuteMode();}
-		Audio.setRelativeVolume(0);
-		break;
-
-	case tvKey.KEY_VOL_DOWN:
-		if (this.mute == this.YMUTE) {Main.noMuteMode();}
-		Audio.setRelativeVolume(1);
-		break;
-	case tvKey.KEY_PANEL_VOL_DOWN: // громкость -
-		if (this.mute == this.YMUTE) {Main.noMuteMode();}
-		Audio.setRelativeVolume(1);
-		break;
-	
-	case tvKey.KEY_MUTE:
-        alert("MUTE");
-        this.muteMode();
-        break;
-  */      
+ 
 	
 	default:
 		alert("Unhandled key");
@@ -556,12 +528,14 @@ Main.selectUpVideo = function(){
 Main.handlePlayKey = function(url)
 {
 	if (this.sta == 1) {
+		
 		Player.stopVideo();
 		url = URLtoXML.pUrlSt[b];
 		Player.playVideo(url);
 	}
 	switch (Player.getState()) {
 	case Player.STOPPED:
+		this.currentFSMode=1;
 		Player.playVideo(url);
 		break;
 	case Player.PAUSED:

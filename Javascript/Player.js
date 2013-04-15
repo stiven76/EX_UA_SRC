@@ -89,6 +89,7 @@ Player.setScreenMode = function(modesize) {
 
 	var result = ((!modesize) ? 1 : modesize) + "";
 alert ("{APP}setscreenmode "+result);
+Display.statusLine ("Режим "+result);
 	switch (result) {
 	case "1":
 		if (h / w > 9 / 16) {
