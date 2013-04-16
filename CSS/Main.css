@@ -11,10 +11,6 @@
 	font-family: Century_Gothic;
 	src: url('../fonts/Century_Gothic.ttf');
 }
-body
-{
-    width: 960px; height: 540px;
-}
 
 #main {
 	position: absolute;
@@ -25,9 +21,7 @@ body
 	color: #c0c0c0;
 	font-size: 22px;
 	background-image: url("../images/background.png");
-/*	background-color: #242424;*/
 	font-family: Century_Gothic;
-	/*z-index:100;*/
 }
 #statusvol
 {
@@ -75,15 +69,54 @@ body
 	/*z-index:100;*/
 }
 
-#svecKeyHelp_IIZH {
+#help_line_1 {
 	position: absolute;
 	top: 510px;
 	left: 0px;
 	width: 960px;
 	height: 30px;
 	background-image: url("../images/helpbar.png");
-	/*z-index:100;*/
+	float:left;
+	text-align:center;
+	overflow: hidden;	
 }
+#help_line_2 {
+	position: absolute;
+	top: 510px;
+	left: 0px;
+	width: 960px;
+	height: 30px;
+	background-image: url("../images/helpbar.png");
+	float:left;
+	text-align:center;
+	overflow: hidden;
+}
+#help_line_3 {
+	position: absolute;
+	top: 510px;
+	left: 0px;
+	width: 960px;
+	height: 30px;
+	background-image: url("../images/helpbar.png");
+	float:left;
+	text-align:center;
+	overflow: hidden;
+}
+#HelpLineButton
+{
+	margin-top: 2px;
+	margin-left:35px;
+	float:left;
+       
+}
+#HelpLineText
+{
+	float:left;
+    font-size: 16px;
+    margin-left:2px;
+    margin-top: 5px;
+}
+
 
 #search {
 	position: absolute;
@@ -91,7 +124,7 @@ body
 	left: 500px;
 	width: 300px;
 	color: #c0c0c0;
-	font-size: 34px;
+	
 	/*z-index:110;*/
 }
 
@@ -127,6 +160,7 @@ body
 	color: #c0c0c0;
 	font-size: 18px;
 	font-family: Times New Roman, Times, serif;
+	text-align: left;
 	/*z-index:110;*/
 }
 
@@ -235,10 +269,10 @@ body
 {
     position:absolute;
 	top:480px; 
-              width: 960px; 
+    width: 960px; 
 	height:60px;		
 	background-image: url("../images/player.png");
-
+	
 }
 
 #play_name
@@ -268,15 +302,15 @@ body
 
 #player .p_third_line
 {
-        position:absolute;
+    position:absolute;
 	top:20px; 
-        width:100%;
+    width:100%;
 }
 
 #but_play
 {
 	position:absolute;
-	left:20px;top:12px;
+	left:10px;top:12px;
 }
 #but_pause
 {

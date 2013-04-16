@@ -19,9 +19,9 @@
 Display.init = function()
 {
     var success = true;
-     this.status1Div = document.getElementById("status1");
-     this.statusVolSpan = document.getElementById("status_vol_span");
-     this.statusLineSpan = document.getElementById("status_line_span");
+    this.status1Div = document.getElementById("status1");
+    this.statusVolSpan = document.getElementById("status_vol_span");
+    this.statusLineSpan = document.getElementById("status_line_span");
 
     if (!this.statusVolSpan&&!this.status1Div&&!this.statusLineSpan)
     {
@@ -42,7 +42,7 @@ Display.statusLine = function(param_string)
 };
 Display.statusLineTimer = function()
 {
-	this.status_timer=setTimeout("Display.hideStatusLine()",2000);
+	this.status_timer=setTimeout("Display.hideStatusLine()",4000);
 };
 
 Display.hideStatusLine = function()
@@ -52,6 +52,7 @@ Display.hideStatusLine = function()
 /////////////////////// STATUS LINE ///////////////////////////////////
 
 /////////////////////// STATUS VOLUME /////////////////////////////////
+/*
 Display.setVolume = function()
 {
 	var volume = Audio.getVolume();
@@ -79,6 +80,7 @@ Display.statusVolTimer = function()
 {
 	this.status_vol_timer=setTimeout("Display.hideStatusVol()",2000);
 };
+*/
 /////////////////////// STATUS VOLUME /////////////////////////////////
 
 Display.hidemenu = function()
@@ -139,7 +141,7 @@ Display.showplayer = function()
 	
 Display.infobarTimer = function()
 {
-	this.infobar_timer=setTimeout("Display.hideplayer()",5000);
+	this.infobar_timer=setTimeout("Display.hideplayer()",4000);
 };
 
 
@@ -235,4 +237,25 @@ Display.Timeout = function() {
 	Main.selectNextVideo(); // переключение на след. трек
 	url = URLtoXML.pUrlSt[b];
 	Main.handlePlayKey(url); // играть
+};
+//////////////////////////////////////////////////
+//////////////// help_lines
+Display.help_line_1 = function()
+{
+	
+	document.getElementById("help_line_2").style.display="none";
+	document.getElementById("help_line_3").style.display="none";
+	document.getElementById("help_line_1").style.display="block";
+};
+Display.help_line_2 = function()
+{
+	document.getElementById("help_line_1").style.display="none";
+	document.getElementById("help_line_3").style.display="none";
+	document.getElementById("help_line_2").style.display="block";
+};
+Display.help_line_3 = function()
+{
+	document.getElementById("help_line_1").style.display="none";
+	document.getElementById("help_line_2").style.display="none";
+	document.getElementById("help_line_3").style.display="block";
 };

@@ -87,7 +87,8 @@ Player.setScreenMode = function(modesize) {
 		h : ScreenHeight
 	};
 
-	var result = ((!modesize) ? 1 : modesize) + "";
+var result = ((!modesize) ? 1 : modesize) + "";
+
 alert ("{APP}setscreenmode "+result);
 Display.statusLine ("Режим "+result);
 	switch (result) {
@@ -168,14 +169,15 @@ Display.statusLine ("Режим "+result);
 Player.playVideo = function() // играть
 {
 	//alert(url);
+	
 	this.state = this.PLAYING;
 	// this.setWindow();
 	this.plugin.Play(url);
 	Display.showplayer();
 	Main.setFullScreenMode();
-	document.getElementById("main").style.display = "none";
 	Player.setFullscreen();
-	this.plugin.SetDisplayArea(0, 0, ScreenWidth, ScreenHeight); 
+	Player.setScreenMode(Main.currentFSMode);
+
 };
 
 Player.pauseVideo = function() // пауза

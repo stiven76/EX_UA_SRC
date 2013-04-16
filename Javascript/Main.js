@@ -3,10 +3,8 @@ var tvKey = new Common.API.TVKeyValue();
 var pluginAPI = new Common.API.Plugin();
 
 showHandler = function() {
-	alert ("{APP} ****************************showHandler");
+// procedure OK
 	document.getElementById('pluginObjectNNavi').SetBannerState(1);
-
-	//pluginAPI.SetBannerState(2);
 	pluginAPI.unregistKey(tvKey.KEY_VOL_UP);
 	pluginAPI.unregistKey(tvKey.KEY_VOL_DOWN);
 	pluginAPI.unregistKey(tvKey.KEY_MUTE);
@@ -40,7 +38,7 @@ var Main = {
 	serieE : false,
 	serieB : false,
 	serieText:"", // текстовая версия ТВ
-	version_vidget : "0.9.5.5",
+	version_vidget : "0.9.5.6 gamma-N",
 /*	mute : 0,
     NMUTE : 0,
     YMUTE : 1
@@ -70,14 +68,16 @@ Main.onLoad = function() {
 		document.getElementById("plain").style.display = "none";
 		document.getElementById("search").style.display = "none";
 		document.getElementById("black").style.display = "none";
-		widgetAPI.putInnerHTML(document.getElementById("vidget_ver_span"),"Model:"+this.hardware+"   Type:"+this.hardware_char+"   v."+Main.version_vidget);
+		widgetAPI.putInnerHTML(document.getElementById("vidget_ver"),"Model:"+this.hardware+"   Type:"+this.hardware_char+"   v."+Main.version_vidget);
 		// адрес запроса
 		this.sURL = this.janrURL + '?v=1,0&p=' + this.string + '&per=18';
 
 		URLtoXML.Proceed(this.sURL);
+		
 		//Display.setTime(0); // выставляем 0:00:00/0:00:00
 		//Display.setVolume( Audio.getVolume() ); // громкости
-		$('#svecKeyHelp_IIZH').sfKeyHelp({'TOOLS' : 'Поиск','NUMBER' : 'Категория',	'UPDOWN' : 'Позиция','leftright' : 'Позиция','Enter' : 'Выбор',	'Exit' : 'Выход'});
+	//	$('#svecKeyHelp_IIZH').sfKeyHelp({'TOOLS' : 'Поиск','NUMBER' : 'Категория',	'UPDOWN' : 'Позиция','leftright' : 'Позиция','Enter' : 'Выбор',	'Exit' : 'Выход'});
+		Display.help_line_1();
 	
 	}
 };
@@ -105,7 +105,6 @@ Main.keyDown = function() {
 			document.getElementById("search").style.display = "block";
 			document.getElementById("plain").style.display = "block";
 			document.getElementById("black").style.display = "block";
-
 			Search.Input();
 			}
 		};
@@ -154,7 +153,9 @@ Main.keyDown = function() {
 		break;
 
 	case tvKey.KEY_INFO:
+		if (this.mode==this.FULLSCREEN){
 		Display.showplayer();
+		}
 		break;
 		
 	case tvKey.KEY_RED:
@@ -170,22 +171,24 @@ Main.keyDown = function() {
 		if (this.mode == this.WINDOW) { // не переключаем в свернутом режиме
 			break;
 		}
-		this.currentFSMode = (this.currentFSMode < 5) ? this.currentFSMode + 1 : 1;
-
-		Player.setScreenMode(this.currentFSMode);
-		Display.statusLine ("Режим "+this.currentFSMode);
-		break;
+		else{
+			this.currentFSMode = (this.currentFSMode < 5) ? this.currentFSMode + 1 : 1;
+			Player.setScreenMode(this.currentFSMode);
+			Display.statusLine ("Режим "+this.currentFSMode);
+			break;
+		}
 		
 	case tvKey.KEY_ASPECT: // переключение типа полноэкранного режима (циклично от
 		// 1 до 5, начальное значение 2)
 		if (this.mode == this.WINDOW) { // не переключаем в свернутом режиме
 			break;
 		}
-		this.currentFSMode = (this.currentFSMode < 5) ? this.currentFSMode + 1 : 1;
-
-		Player.setScreenMode(this.currentFSMode);
-		Display.statusLine ("Режим "+this.currentFSMode);
-		break;
+		else{
+			this.currentFSMode = (this.currentFSMode < 5) ? this.currentFSMode + 1 : 1;
+			Player.setScreenMode(this.currentFSMode);
+			Display.statusLine ("Режим "+this.currentFSMode);
+			break;
+		}
 
 	case tvKey.KEY_STOP:
 		Player.stopVideo();
@@ -224,7 +227,8 @@ Main.keyDown = function() {
 		this.playlist = 0;
 		document.getElementById("spisok").style.display = "block";
 		document.getElementById("playlist").style.display = "none";
-		$('#svecKeyHelp_IIZH').sfKeyHelp({'TOOLS' : 'Поиск','NUMBER' : 'Категория','UPDOWN' : 'Позиция','leftright' : 'Позиция', 'Enter' : 'Выбор'});
+//		$('#svecKeyHelp_IIZH').sfKeyHelp({'TOOLS' : 'Поиск','NUMBER' : 'Категория','UPDOWN' : 'Позиция','leftright' : 'Позиция', 'Enter' : 'Выбор'});
+		Display.help_line_1();
 		break;
 
 	case tvKey.KEY_LEFT: // лево
@@ -267,11 +271,6 @@ Main.keyDown = function() {
 		}
 
 	case tvKey.KEY_UP:
-		if (Player.getState() == Player.PLAYING && this.mode == this.FULLSCREEN) {
-			Player.skipForwardVideoFast();
-			break;
-		}
-		
 		if (this.playlist == 0) {
 			this.smeh = -6;
 			if (this.index == 1 || this.index == 2 || this.index == 3
@@ -281,26 +280,21 @@ Main.keyDown = function() {
 			Main.ActivString(this.smeh);// активная строка
 		} else if (this.playlist == 1) {
 			this.selectUpVideo();
-		}
+		};
 		break;
 
 	case tvKey.KEY_DOWN:
-		if (Player.getState() == Player.PLAYING && this.mode == this.FULLSCREEN) {
-			Player.skipBackwardVideoFast();
-			break;
-		}
-		
 		if (this.playlist == 0) {
 			this.smeh = 6;
 			if (this.index == 13 || this.index == 14 || this.index == 15
 					|| this.index == 16 || this.index == 17 || this.index == 18) {
-				Main.NewString(-12, 1);
-			}// переход поиска вниз
+				Main.NewString(-12, 1);// переход поиска вниз
+			}
 			Main.ActivString(this.smeh);// активная строка
 		} else if (this.playlist == 1) {
 			this.selectNextVideo();
 			this.sta = 1; // играть c начала
-		}
+		};
 		break;
 
 	case tvKey.KEY_ENTER:
@@ -335,7 +329,7 @@ Main.keyDown = function() {
 					+ "max-width: 200px; max-height: 200px; ' align='left'"
 					+ URLtoXML.pDes[this.index]);
 		};
-		$('#svecKeyHelp_IIZH').sfKeyHelp({'BLUE' : 'Формат','UPDOWN' : 'Позиция','Enter' : 'Выбор','return' : 'Назад'});
+		Display.help_line_2();
 		break;
  
 	
@@ -344,7 +338,6 @@ Main.keyDown = function() {
 		break;
 
 	}
-	
 	if (URLtoXML.sName[this.index].length > 180) {
 		widgetAPI.putInnerHTML(document.getElementById("title"), URLtoXML.sName[this.index].substr(0, 180) + "...");
 	}// название в заголовок
@@ -357,7 +350,7 @@ Main.keyDown = function() {
 Main.NewString = function(per, a) {
 	this.search = "?";
 	this.smeh = per; // соответствие столбца
-	this.string = this.string + a; // смещаем адресс поиска страницы
+	this.string = this.string + a; // смещаем адрес поиска страницы
 	if (this.string < 0) {// верхний предел
 		this.string = 0;
 		this.smeh = 0;
@@ -530,11 +523,12 @@ Main.handlePlayKey = function(url)
 		
 		Player.stopVideo();
 		url = URLtoXML.pUrlSt[b];
+		//this.currentFSMode=1; //принудительно выставляем 1-й режим.
 		Player.playVideo(url);
 	}
 	switch (Player.getState()) {
 	case Player.STOPPED:
-		this.currentFSMode=1;
+		
 		Player.playVideo(url);
 		break;
 	case Player.PAUSED:
@@ -567,7 +561,6 @@ Main.NewJanr = function(janr, text) {
 Main.setFullScreenMode = function() {
 	if (this.mode != this.FULLSCREEN) {
 		document.getElementById("main").style.display = "none";
-		Player.setScreenMode(this.currentFSMode);
 		this.mode = this.FULLSCREEN;
 	}
 };
@@ -592,43 +585,7 @@ Main.toggleMode = function() {
 
 	default:
 		break;
-	};
-};
-//////////////////////// modify MUTE mode
-Main.setMuteMode = function()
-	{
-	    if (this.mute != this.YMUTE)
-	    {
-	    	Audio.plugin.SetSystemMute(true);
-	    	this.mute = this.YMUTE;
-	    	Display.statusMute();
-	    }
-};
-Main.noMuteMode = function()
-	{
-	    if (this.mute != this.NMUTE)
-	    {
-	        Audio.plugin.SetSystemMute(false); 
-	        this.mute = this.NMUTE;
-	        Display.setVolume( Audio.getVolume() );
-
-	    }
+	}
 };
 
-Main.muteMode = function(){
-	switch (this.mute)
-	{
-		case this.NMUTE:
-			this.setMuteMode();
-	        break;
-	            
-	    case this.YMUTE:
-	        this.noMuteMode();
-	        break;
-	            
-	        default:
-	            alert("ERROR: unexpected mode in muteMode");
-	            break;
-	    }
-};
 

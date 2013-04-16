@@ -6,11 +6,8 @@ var rezylt = ''; // текст результат
 
 Search.Input = function() {
 	// строка информации
-	$('#svecKeyHelp_IIZH').sfKeyHelp({
-		'leftright' : 'Call the IME',
-		'Enter' : 'Input text',
-		'return' : 'Return'
-	});
+	//$('#svecKeyHelp_IIZH').sfKeyHelp({ 		'leftright' : 'Call the IME',		'Enter' : 'Input text',		'return' : 'Return'	});
+	Display.help_line_3();
 	// создаём виртуальную клав. привязанную к ID - "plainText"
 	ime = new IMEShell("plainText", Search.imeReady, 'en');
 };
@@ -43,14 +40,8 @@ Search.onEnter = function(string) {
 	document.getElementById("plain").style.display = "none";
 	document.getElementById("search").style.display = "none";
 	document.getElementById("black").style.display = "none";
-	$('#svecKeyHelp_IIZH').sfKeyHelp({
-		'TOOLS' : 'Поиск',
-		'NUMBER' : 'Категория',
-		'UPDOWN' : 'Позиция',
-		'leftright' : 'Позиция',
-		'Enter' : 'Выбор',
-		'return' : 'Назад'
-	});
+	//$('#svecKeyHelp_IIZH').sfKeyHelp({		'TOOLS' : 'Поиск',		'NUMBER' : 'Категория',		'UPDOWN' : 'Позиция',		'leftright' : 'Позиция',		'Enter' : 'Выбор',		'return' : 'Назад'	});
+	Display.help_line_1();
 };
 
 Search.textobjKeyFunc = function(keyCode) {// возврат при нажатии кнопки RETURN
@@ -62,14 +53,16 @@ Search.textobjKeyFunc = function(keyCode) {// возврат при нажати
 	document.getElementById("plain").style.display = "none";
 	document.getElementById("search").style.display = "none";
 	document.getElementById("black").style.display = "none";
-	$('#svecKeyHelp_IIZH').sfKeyHelp({
+	/*$('#svecKeyHelp_IIZH').sfKeyHelp({
 		'TOOLS' : 'Поиск',
 		'NUMBER' : 'Категория',
 		'UPDOWN' : 'Позиция',
 		'leftright' : 'Позиция',
 		'Enter' : 'Выбор',
 	});
-};
+	*/
+	Display.help_line_1();
+	};
 
 Search.SearchOk = function(arg) { // отлавливаем текст и помещаем в переменную
 	// document.getElementById('notifications').innerHTML = arg; // готовый

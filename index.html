@@ -10,13 +10,18 @@
 <script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/Widget.js"></script>
 <script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/Plugin.js"></script>
 <script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/TVKeyValue.js"></script>
+<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/Util/Language.js"></script>
 <script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/Plugin/Define.js"></script>
 <script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/Util/Include.js"></script>
 
 
-<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/af/2.0.0/loader.js"></script>
+
+<!-- 
+ <script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/af/2.0.0/loader.js"></script>
+
+
 <script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/CM_AVSetting.js"></script>
- 
+  -->
 
 
 <script language="javascript" type="text/javascript" src="Javascript/Main.js"></script>
@@ -28,29 +33,27 @@
 <!-- <script language="javascript" type="text/javascript" src="Javascript/Favorites.js"></script> -->
 
 
-<!-- Плагины -->
-<OBJECT id="pluginObjectAppCommon" border=0 classid="clsid:SAMSUNG-INFOLINK-APPCOMMON"></OBJECT>
 <object id="pluginPlayer" border=0 classid="clsid:SAMSUNG-INFOLINK-PLAYER"></object>
 <object id="pluginAudio" border=0 classid="clsid:SAMSUNG-INFOLINK-AUDIO"></object>
+<object id="pluginObjectTVMW" border=0 classid="clsid:SAMSUNG-INFOLINK-TVMW"></object>
 <object id="pluginScreen" border=0 classid="clsid:SAMSUNG-INFOLINK-SCREEN"></object>
 <object id="pluginObjectVideo" border=0 classid="clsid:SAMSUNG-INFOLINK-VIDEO"></object>
 <object id="pluginNetwork" classid="clsid:SAMSUNG-INFOLINK-NETWORK" border="0"></object>
 <object id="pluginObjectNNavi" border=0 classid="clsid:SAMSUNG-INFOLINK-NNAVI"></object>
 <object id="pluginTV" classid="clsid:SAMSUNG-INFOLINK-TV" border="0"></object>
-<object id="pluginObjectTVMW" border=0 classid="clsid:SAMSUNG-INFOLINK-TVMW"></object>
+<OBJECT id="pluginObjectAppCommon" border=0 classid="clsid:SAMSUNG-INFOLINK-APPCOMMON"></OBJECT>
+
+<!-- Плагины -->
 
 </head>
 
 <body onload="Main.onLoad();" onunload="Main.onUnload();">
-
-<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/IME/ime2.js"></script>
-
+   <script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/IME/ime2.js"></script>
 	<a href="javascript:void(0);" id="anchor" onkeydown="Main.keyDown();"></a>
 	<div id="main">
-
 		<div id="spisok">
 			<div id="janr">Жанр : &nbsp;&nbsp;&nbsp;&nbsp; Зарубежные фильмы</div>
-			<div id="vidget_ver"><span id="vidget_ver_span"></span></div>
+			<div id="vidget_ver"></div>
 			<div id="spisok2">
 				<div id="bloc1" class="block"></div>
 				<div id="bloc2" class="block"></div>
@@ -72,9 +75,7 @@
 				<div id="bloc18" class="block"></div>
 			</div>
 		</div>
-
 		<div id="playlist">
-
 			<div id="description"></div>
 			<div id="descript"></div>
 			<div id="list">
@@ -290,7 +291,40 @@
 		<form id="plain" class="window">
 			<input id="plainText" type="text" size="30" />
 		</form>
-		<div id='svecKeyHelp_IIZH'></div>
+<!-- 	<div id='svecKeyHelp_IIZH'>	</div> -->
+		<div id="help_line_1" style="display:none;">
+			<div id="HelpLineButton"><img src="images/buttons/tools_.png"></img></div>
+			<span id="HelpLineText">Поиск</span>
+			<div id="HelpLineButton"><img src="images/buttons/0_9_.png"></img></div>
+			<span id="HelpLineText">Категория</span>
+			<div id="HelpLineButton"><img src="images/buttons/move_.png"></img></div>
+			<span id="HelpLineText">Навигация</span>
+			<div id="HelpLineButton"><img src="images/buttons/enter_.png"></img></div>
+			<span id="HelpLineText">Выбор</span>
+			<div id="HelpLineButton"><img src="images/buttons/exit_.png"></img></div>
+			<span id="HelpLineText">Выход</span>
+		</div>
+		<div id="help_line_2" style="display:none;">
+			<div id="HelpLineButton" style="margin-right:0px;"><img src="images/buttons/blue_.png"></img></div>
+			<div id="HelpLineButton" style="margin-left:0px;"><img src="images/buttons/psize_.png" ></img></div>
+			<span id="HelpLineText">Формат изображения</span>
+			<div id="HelpLineButton"><img src="images/buttons/lr_.png"></img></div>
+			<span id="HelpLineText">Перемотка 2 мин</span>
+			<div id="HelpLineButton"><img src="images/buttons/llrr_.png"></img></div>
+			<span id="HelpLineText">Перемотка 30 сек</span>
+			<div id="HelpLineButton"><img src="images/buttons/enter_.png"></img></div>
+			<span id="HelpLineText">Выбор</span>
+			<div id="HelpLineButton"><img src="images/buttons/exit_.png"></img></div>
+			<span id="HelpLineText">Выход</span>
+		</div>
+		<div id="help_line_3" style="display:none;">
+			<div id="HelpLineButton"><img src="images/buttons/lr_.png"></img></div>
+			<span id="HelpLineText">Call the IME</span>
+			<div id="HelpLineButton"><img src="images/buttons/enter_.png"></img></div>
+			<span id="HelpLineText">Выполнить поиск</span>
+			<div id="HelpLineButton"><img src="images/buttons/back_.png"></img></div>
+			<span id="HelpLineText">Возврат</span>
+		</div>
 	</div>
 	    <div id="player" style="display:none;">
         <div class="p_firts_line">
@@ -318,12 +352,10 @@
             </div>
         </div>      
     </div>
-        <div id="statusvol" style="display:none;"><span id="status_vol_span"></span></div>
-        
         <div id="statusline" style="display:none;"><span id="status_line_span"></span></div>
-        
-        
+<!-- 
         <div id="statusbar1" style="display:none;"><span id="status1"></span></div>
         <div id="selectbox" style="display:none;"></div>
+         -->        
 </body>
 </html>
