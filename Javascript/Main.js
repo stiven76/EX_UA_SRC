@@ -1,7 +1,8 @@
 var widgetAPI = new Common.API.Widget();
 var tvKey = new Common.API.TVKeyValue();
 var pluginAPI = new Common.API.Plugin();
-
+var currentFSMode = 2; 
+var currentStatusLineText="";
 showHandler = function() {
 // procedure OK
 	document.getElementById('pluginObjectNNavi').SetBannerState(1);
@@ -14,7 +15,7 @@ var Main = {
 	mode : 0, // состояние полноэкранного режима
 	WINDOW : 0,
 	FULLSCREEN : 1,
-	currentFSMode : 1, // тип полноэкранного режима
+	//currentFSMode : 1, // тип полноэкранного режима
 
 	sURL : "", // адрес страниы альбома
 
@@ -38,7 +39,7 @@ var Main = {
 	serieE : false,
 	serieB : false,
 	serieText:"", // текстовая версия ТВ
-	version_vidget : "0.9.5.6 gamma-N",
+	version_vidget : "0.9.5.6 Sigma",
 /*	mute : 0,
     NMUTE : 0,
     YMUTE : 1
@@ -155,6 +156,7 @@ Main.keyDown = function() {
 	case tvKey.KEY_INFO:
 		if (this.mode==this.FULLSCREEN){
 		Display.showplayer();
+		Display.statusLine (currentStatusLineText);
 		}
 		break;
 		
@@ -172,9 +174,9 @@ Main.keyDown = function() {
 			break;
 		}
 		else{
-			this.currentFSMode = (this.currentFSMode < 5) ? this.currentFSMode + 1 : 1;
-			Player.setScreenMode(this.currentFSMode);
-			Display.statusLine ("Режим "+this.currentFSMode);
+			currentFSMode = (currentFSMode < 5) ? currentFSMode + 1 : 1;
+			Player.setScreenMode(currentFSMode);
+//			Display.statusLine ("Режим "+currentFSMode);
 			break;
 		}
 		
@@ -184,9 +186,9 @@ Main.keyDown = function() {
 			break;
 		}
 		else{
-			this.currentFSMode = (this.currentFSMode < 5) ? this.currentFSMode + 1 : 1;
-			Player.setScreenMode(this.currentFSMode);
-			Display.statusLine ("Режим "+this.currentFSMode);
+			currentFSMode = (currentFSMode < 5) ? currentFSMode + 1 : 1;
+			Player.setScreenMode(currentFSMode);
+//			Display.statusLine ("Режим "+currentFSMode);
 			break;
 		}
 
@@ -334,7 +336,7 @@ Main.keyDown = function() {
  
 	
 	default:
-		alert("Unhandled key");
+//		alert("Unhandled key");
 		break;
 
 	}
@@ -520,15 +522,12 @@ Main.selectUpVideo = function(){
 Main.handlePlayKey = function(url)
 {
 	if (this.sta == 1) {
-		
 		Player.stopVideo();
 		url = URLtoXML.pUrlSt[b];
-		//this.currentFSMode=1; //принудительно выставляем 1-й режим.
 		Player.playVideo(url);
 	}
 	switch (Player.getState()) {
 	case Player.STOPPED:
-		
 		Player.playVideo(url);
 		break;
 	case Player.PAUSED:

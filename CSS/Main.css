@@ -52,8 +52,8 @@
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	font-size: 20px;
-	text-align:center;
+	font-size: 18px;
+	text-align:left;
 	color: white;
 	width: 100%;
 	background-image: url("../images/helpbar.png");
