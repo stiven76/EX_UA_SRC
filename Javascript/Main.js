@@ -2,9 +2,12 @@ var widgetAPI = new Common.API.Widget();
 var tvKey = new Common.API.TVKeyValue();
 var pluginAPI = new Common.API.Plugin();
 var currentFSMode = 2; 
+var maxFSMode = 3;
 var currentStatusLineText="";
+
 showHandler = function() {
 // procedure OK
+	// Стандартный индикатор громкости
 	document.getElementById('pluginObjectNNavi').SetBannerState(1);
 	pluginAPI.unregistKey(tvKey.KEY_VOL_UP);
 	pluginAPI.unregistKey(tvKey.KEY_VOL_DOWN);
@@ -12,13 +15,12 @@ showHandler = function() {
 	pluginAPI.setOffScreenSaver();
 };
 var Main = {
+	version_vidget : "0.9.5.6 Final",
 	mode : 0, // состояние полноэкранного режима
 	WINDOW : 0,
 	FULLSCREEN : 1,
-	//currentFSMode : 1, // тип полноэкранного режима
 
 	sURL : "", // адрес страниы альбома
-
 	index : 1, // номер активного канала
 	smeh : 6, // смещение при перемещении верх-низ на странице
 	string : 0, // номер строки с общими списками
@@ -39,7 +41,7 @@ var Main = {
 	serieE : false,
 	serieB : false,
 	serieText:"", // текстовая версия ТВ
-	version_vidget : "0.9.5.6 Sigma",
+	
 /*	mute : 0,
     NMUTE : 0,
     YMUTE : 1
@@ -83,7 +85,7 @@ Main.onLoad = function() {
 	}
 };
 
-// Стандартный индикатор громкости
+
 
 Main.onUnload = function() {
 	Player.deinit();
@@ -174,19 +176,19 @@ Main.keyDown = function() {
 			break;
 		}
 		else{
-			currentFSMode = (currentFSMode < 5) ? currentFSMode + 1 : 1;
+			currentFSMode = (currentFSMode < maxFSMode ) ? currentFSMode + 1 : 1;
 			Player.setScreenMode(currentFSMode);
 //			Display.statusLine ("Режим "+currentFSMode);
 			break;
 		}
 		
 	case tvKey.KEY_ASPECT: // переключение типа полноэкранного режима (циклично от
-		// 1 до 5, начальное значение 2)
+		// 1 до maxFSMode , начальное значение 2)
 		if (this.mode == this.WINDOW) { // не переключаем в свернутом режиме
 			break;
 		}
 		else{
-			currentFSMode = (currentFSMode < 5) ? currentFSMode + 1 : 1;
+			currentFSMode = (currentFSMode < maxFSMode) ? currentFSMode + 1 : 1;
 			Player.setScreenMode(currentFSMode);
 //			Display.statusLine ("Режим "+currentFSMode);
 			break;
@@ -194,6 +196,7 @@ Main.keyDown = function() {
 
 	case tvKey.KEY_STOP:
 		Player.stopVideo();
+		Main.setWindowMode();
 		break;
 
 	case tvKey.KEY_PAUSE:
@@ -201,7 +204,7 @@ Main.keyDown = function() {
 		break;
 
 	case tvKey.KEY_PLAY:
-		alert(url);
+//		alert(url);
 		Main.handlePlayKey(url);
 		this.sta = 1; // играть c начала
 		break;
@@ -224,6 +227,7 @@ Main.keyDown = function() {
 		//зачем надо проверять режим проигрывания - на понял - по идее хватает проверки полноэкранности, но сделал  по аналогии 
 		{
 			Player.stopVideo();
+			Main.setWindowMode();
 			break;
 		};////////
 		this.playlist = 0;
@@ -560,14 +564,16 @@ Main.NewJanr = function(janr, text) {
 Main.setFullScreenMode = function() {
 	if (this.mode != this.FULLSCREEN) {
 		document.getElementById("main").style.display = "none";
+//		Player.setFullscreen();
 		this.mode = this.FULLSCREEN;
 	}
 };
 
 Main.setWindowMode = function() {
 	if (this.mode != this.WINDOW) {
-		document.getElementById("main").style.display = "block";
+		Display.hideplayer();
 		Player.setWindow();
+		document.getElementById("main").style.display = "block";
 		this.mode = this.WINDOW;
 	}
 };
